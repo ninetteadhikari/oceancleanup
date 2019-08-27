@@ -9,11 +9,18 @@ const game = new Game();
 function setup() {
   console.log("p5 setup");
   createCanvas(1500, 900);
+  angleMode(DEGREES);
   game.setup();
-  angleMode(DEGREES)
 }
 
 function draw() {
+  clear()
+  if (game.fishAlive===true){
   game.draw();
+  }
   drawSprites();
+}
+
+function keyPressed() {
+  game.submarine.keyPressed();
 }
