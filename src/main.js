@@ -3,7 +3,7 @@ const game = new Game();
 
 function setup() {
   console.log("p5 setup");
-  createCanvas(1500, 900);
+  createCanvas(WIDTH, HEIGHT);
   angleMode(DEGREES);
   game.setup();
 }

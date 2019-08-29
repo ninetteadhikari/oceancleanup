@@ -8,11 +8,11 @@
 }
 
 .intro {
-  width: 900px 1500px;
+ 
   background: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 8px;
-  padding: 50px;
+  padding: 60px;
   margin: 150px 350px;
   text-align: center;
 
@@ -21,7 +21,7 @@
   color: #585858;
 }
 
-.btn-start {
+.btn {
     background-color: #ffbe0b;
     border-radius: 8px;
     border: none;
@@ -39,6 +39,74 @@
   .credits {
     color: lightgrey;
   }
+
+  .game-lose{
+    position: absolute;
+    background:white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+    padding: 60px;
+    margin: 250px 500px;
+    text-align: center;
+  align-content: center;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.5em;
+    color: #585858;
+    display: none
+
+  }
+
+  /* .end-message{
+    position: absolute;
+  width: 1500px;
+  height:900px
+  } */
+
+  .health-box{
+    background-color: #ccc;
+  height: 30px;
+  width: 250px;
+  /* margin:1px 120px; */
+  /* margin: 60px 1200px; */
+  position: absolute;
+  border-radius: 5px;
+  }
+
+  .health-bar {
+    background-color: #76ba1b;
+    width: 220px;
+    height: 25px;
+    border-radius: 5px;
+    border: 2px solid #5c9114
+
+   
+  }
+
+.score-card{
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.5em;
+    color: #585858;
+    position: absolute;
+    display: none;
+    font-weight: bold;
+    width: 1500px;
+    height: 900px;
+    margin: 50px 0 0 50px;
+
+  display: none;
+  
+}
+
+.health-label{
+  display: inline;
+
+
+}
+
+.score{
+
+  
+}
   
 
 

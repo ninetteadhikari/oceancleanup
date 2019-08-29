@@ -5,6 +5,8 @@ class Fish {
     this.gravity = 0.05;
     this.velocity = 0;
     this.collisionAngle = 0;
+    this.healthPoints =6;
+
   }
 
   setup() {
@@ -26,24 +28,24 @@ class Fish {
       // this.fishSprite.rotation = random(360);
     }
     if (
-      this.fishSprite.position.x > WIDTH - 100 
+      this.fishSprite.position.x > WIDTH - 200 
     ) {
-      this.fishSprite.position.x = WIDTH - 100
+      this.fishSprite.position.x = WIDTH - 200
       this.fishSprite.rotation += 180;
       this.fishSprite.setSpeed(3, this.fishSprite.rotation);
     }else  if (
 
-      this.fishSprite.position.y > HEIGHT - 100
+      this.fishSprite.position.y > HEIGHT - 200
     ) {
       console.log("flip")
-      this.fishSprite.position.y = HEIGHT - 100
+      this.fishSprite.position.y = HEIGHT - 200
       this.fishSprite.rotation += 180;
       this.fishSprite.setSpeed(3, this.fishSprite.rotation);
     } else if (
     
-      this.fishSprite.position.y < 100
+      this.fishSprite.position.y < 200
     ) {
-      this.fishSprite.position.y = 100
+      this.fishSprite.position.y = 200
 
       console.log("flip")
 
@@ -51,10 +53,10 @@ class Fish {
       this.fishSprite.setSpeed(3, this.fishSprite.rotation);
     }
     else if (
-      this.fishSprite.position.x < 100 
+      this.fishSprite.position.x < 200 
     ) {
       console.log("flip")
-      this.fishSprite.position.x = 100
+      this.fishSprite.position.x = 200
       
       this.fishSprite.rotation -= 180;
       this.fishSprite.setSpeed(3, this.fishSprite.rotation);

@@ -14,26 +14,41 @@
         <p class="intro-text">
           You are the <strong>Yellow Submarine!</strong><br />
           <br />
-          Move around and shoot all the trash to save Nemo. <br />
+          Move around and shoot all the trash to stop Nemo from eating them.
+          <br />
           <br />
           Use <strong>ARROW buttons</strong> to move and
           <strong>SPACE BAR</strong> to shoot.
         </p>
         <br />
-        <button class="btn-start">START</button>
+        <button class="btn btn-start">START</button>
         <br />
         <br />
         <p class="credits">Credits</p>
       </div>
     </div>
-    <!-- <div class="end-message">
+    <div class="score-card">
+      <div class="score">
+        <div class="score-label">SCORE: <span class="score-value"></span></div>
+      </div>
+      <div class="health">
+        <span class="health-label">HEALTH</span>
+        <div class="health-box"><div class="health-bar"></div></div>
+      </div>
+    </div>
+    <div class="end-message">
       <div class="game-lose">
-        <p>Oh no! You couldn't save the ocean.<br />Game Over</p>
+        <p class="game-lose-text1"></p>
+        <p class="game-lose-text2"></p>
+        <button
+          onclick="window.location.reload();"
+          class="btn play-again"
+        ></button>
       </div>
-      <div class="game-win">
-        <p>Yaay you saved the ocean!! :D</p>
-      </div>
-    </div> -->
+      <!-- <div class="game-win">
+        <p>Yaay you saved the ocean!! ⭐️🐠</p>
+      </div> -->
+    </div>
     <script src="p5/p5.js"></script>
     <script src="p5/addons/p5.play.js"></script>
     <script src="index.js"></script>

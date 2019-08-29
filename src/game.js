@@ -7,6 +7,8 @@ class Game {
     this.distanceArray = [];
     this.minDistance;
     this.minPosition;
+    this.velocity = 2;
+    this.score=0;
   }
 
   setup() {
@@ -14,15 +16,17 @@ class Game {
     this.background.setup();
     this.submarine.setup();
     this.fish.setup();
+    
   }
 
   draw() {
     this.background.draw();
+    document.querySelector(".score-card").style.display="inline";
     if (frameCount >= 60 && frameCount % 60 === 0) {
-      if (this.trashes.length < 10) {
-        this.createTrash();
-      }
+      // if (this.trashes.length < 20)
+      this.createTrash();
     }
+    if(this.trashes.length>20) this.trashes[0].remove();
 
     this.submarine.draw();
 
@@ -36,7 +40,6 @@ class Game {
           let eachDistance = distance(this.trashes[i], this.fish.fishSprite);
           this.distanceArray.push(eachDistance);
         }
-        console.log(this.distanceArray);
         this.minDistance = Math.min(...this.distanceArray);
 
         this.minPosition = this.distanceArray.indexOf(this.minDistance);
@@ -52,11 +55,16 @@ class Game {
           1,
           (this.fish.fishSprite.rotation / PI) * 180
         );
+        //   this.fish.fishSprite.position.y -=
+        //   cos((this.fish.fishSprite.rotation/PI)*180) * this.velocity;
+        // this.fish.fishSprite.position.x +=
+        //   sin((this.fish.fishSprite.rotation/PI)*180) * this.velocity;
       }
     }
-
-    this.trashes.collide(this.fish.fishSprite, this.eatTrash);
-
+    this.trashes.collide(this.fish.fishSprite, this.eatTrash)
+    document.querySelector(".health-bar").style.width = `${this.fish.healthPoints*(100/6)}%`;
+    document.querySelector(".score-value").innerText = `${this.score}`;
+    console.log(this.fish.healthPoints)
     if (this.submarine.missiles) {
       this.trashes.collide(this.submarine.missiles, this.hitMissile);
     }
@@ -82,59 +90,62 @@ class Game {
     this.trashSprite.rotationSpeed = 0.5;
     this.trashes.add(this.trashSprite);
 
-    // trashArray.forEach(trash => {
-    //   this.trashSprite.addImage(trash);
-    //   this.trashSprite.scale = 0.1;
-    //   this.trashSprite.setSpeed(0.5, random(360));
-    //   this.trashSprite.rotationSpeed = 0.5;
-    //   this.trashes.add(this.trashSprite);
-    // });
-
     // this.trashes.forEach((trash,index) => {
     //   this.trashBoundary(index);
     // });
   }
 
+  // trashBoundary(index) {
+  //   if (this.trashes[index].position.x > WIDTH - 100) {
+  //     this.trashes[index].position.x = WIDTH - 100;
+  //     this.trashes[index].rotation += 180;
+  //     this.trashes[index].setSpeed(0.5, this.trashes[index].rotation);
+  //     this.trashes[index].rotationSpeed = 0.5;
+  //   } else if (this.trashes[index].position.y > HEIGHT - 100) {
 
-  trashBoundary(index) {
-    if (this.trashes[index].position.x > WIDTH - 100) {
-      this.trashes[index].position.x = WIDTH - 100;
-      this.trashes[index].rotation += 180;
-      this.trashes[index].setSpeed(0.5, this.trashes[index].rotation);
-      this.trashes[index].rotationSpeed = 0.5;
-    } else if (this.trashes[index].position.y > HEIGHT - 100) {
-  
-      this.trashes[index].position.y = HEIGHT - 100;
-      this.trashes[index].rotation += 180;
-      this.trashes[index].setSpeed(0.5, this.trashes[index].rotation);
-      this.trashes[index].rotationSpeed = 0.5;
-    } else if (this.trashes[index].position.y < 100) {
-      this.trashes[index].position.y = 100;
-      this.trashes[index].rotation -= 180;
-      this.trashes[index].setSpeed(0.5, this.trashes[index].rotation);
-      this.trashes[index].rotationSpeed = 0.5;
-    } else if (this.trashes[index].position.x < 100) {
-      this.trashes[index].position.x = 100;
-      this.trashes[index].rotation -= 180;
-      this.trashes[index].setSpeed(0.5, this.trashes[index].rotation);
-      this.trashes[index].rotationSpeed = 0.5;
-    }
-  }
+  //     this.trashes[index].position.y = HEIGHT - 100;
+  //     this.trashes[index].rotation += 180;
+  //     this.trashes[index].setSpeed(0.5, this.trashes[index].rotation);
+  //     this.trashes[index].rotationSpeed = 0.5;
+  //   } else if (this.trashes[index].position.y < 100) {
+  //     this.trashes[index].position.y = 100;
+  //     this.trashes[index].rotation -= 180;
+  //     this.trashes[index].setSpeed(0.5, this.trashes[index].rotation);
+  //     this.trashes[index].rotationSpeed = 0.5;
+  //   } else if (this.trashes[index].position.x < 100) {
+  //     this.trashes[index].position.x = 100;
+  //     this.trashes[index].rotation -= 180;
+  //     this.trashes[index].setSpeed(0.5, this.trashes[index].rotation);
+  //     this.trashes[index].rotationSpeed = 0.5;
+  //   }
+  // }
 
   hitMissile(missile, trash) {
     trash.remove();
     missile.remove();
+    addScore();
   }
 
   eatTrash(trash, fish) {
     trash.remove();
+    reduceHealthPoint();
 
     if (fish.scale < 0.45) {
       fish.scale += 0.07;
+      // this.healthWidth -= 50;
+      // let healthPx = `${this.healthWidth}px`;
+     
+   
     } else {
       fish.remove();
       console.log(this);
       createDeadFish();
+      startGame = false;
+      document.querySelector(".game-lose-text1").innerText =
+        "Oh no! You couldn't save the ocean.";
+      document.querySelector(".game-lose-text2").innerText = "Game Over!";
+      document.querySelector(".play-again").innerText = "Try Again";
+      document.querySelector(".game-lose").style.display = "inline";
       noLoop();
     }
   }
@@ -148,4 +159,12 @@ function createDeadFish() {
   );
   fishDeadSprite.addImage(fishDeadImage);
   fishDeadSprite.scale = 0.45;
+}
+
+function reduceHealthPoint(){
+  game.fish.healthPoints-=1;
+}
+
+function addScore(){
+game.score+=10;
 }
