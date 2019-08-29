@@ -9,6 +9,7 @@ class Submarine {
     this.submarineSprite = createSprite(this.x, this.y);
     this.submarineSprite.addImage(submarineImage);
     this.submarineSprite.scale = 0.035;
+    this.submarineSprite.immovable=true
     this.missiles = new Group();
   }
 

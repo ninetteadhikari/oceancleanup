@@ -1,10 +1,5 @@
 const game = new Game();
 
-// function preload() {
-//   game.background.preload();
-//   game.fish.preload();
-//   game.trash.preload();
-// }
 
 function setup() {
   console.log("p5 setup");
@@ -12,14 +7,17 @@ function setup() {
   angleMode(DEGREES);
   game.setup();
 }
+let startGame = false
 
-function draw() {
-  clear()
-  if (game.fishAlive===true){
-  game.draw();
+  function draw() {
+    if(startGame){
+    clear()
+
+    game.draw();
+    
+    drawSprites();
+    }
   }
-  drawSprites();
-}
 
 function keyPressed() {
   game.submarine.keyPressed();

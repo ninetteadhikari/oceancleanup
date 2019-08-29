@@ -3,7 +3,10 @@ class Game {
     this.background = new Background();
     this.fish = new Fish();
     this.submarine = new Submarine();
-    this.fishAlive=true;
+    this.trashSprite;
+    this.distanceArray = [];
+    this.minDistance;
+    this.minPosition;
   }
 
   setup() {
@@ -16,43 +19,106 @@ class Game {
   draw() {
     this.background.draw();
     if (frameCount >= 60 && frameCount % 60 === 0) {
-      this.createTrash();
+      if (this.trashes.length < 10) {
+        this.createTrash();
+      }
     }
 
-    this.fish.draw();
     this.submarine.draw();
+
+    this.fish.draw();
+
+    if (frameCount % 300 === 0) {
+      if (this.trashes.length > 1) {
+        this.distanceArray = [];
+
+        for (let i = 0; i < this.trashes.length; i++) {
+          let eachDistance = distance(this.trashes[i], this.fish.fishSprite);
+          this.distanceArray.push(eachDistance);
+        }
+        console.log(this.distanceArray);
+        this.minDistance = Math.min(...this.distanceArray);
+
+        this.minPosition = this.distanceArray.indexOf(this.minDistance);
+
+        this.fish.fishSprite.rotation = Math.atan2(
+          this.trashes[this.minPosition].position.y -
+            this.fish.fishSprite.position.y,
+          this.trashes[this.minPosition].position.x -
+            this.fish.fishSprite.position.x
+        );
+
+        this.fish.fishSprite.setSpeed(
+          1,
+          (this.fish.fishSprite.rotation / PI) * 180
+        );
+      }
+    }
+
+    this.trashes.collide(this.fish.fishSprite, this.eatTrash);
 
     if (this.submarine.missiles) {
       this.trashes.collide(this.submarine.missiles, this.hitMissile);
     }
 
-    this.trashes.collide(this.fish.fishSprite, this.eatTrash);
+    if (frameCount >= 240 && this.trashes.length === 0) {
+      noLoop();
+    }
 
-    // this.submarine.bounce(this.trashes);
-    // this.fish.bounce(this.trashes);
-
-    // if(this.submarine.missiles.length > 0){
-    //   this.trashes.forEach((trash, index)=> {
-    //     this.submarine.missiles.forEach((missile)=> {
-    //       if (missile.sprite.collide(trash.sprite,(a,b)=>{
-    //         console.log(a,b)
-    //       })) {
-    //         // this.trashes.splice(index, 1);
-    //       }
-    //     });
-    //   });
-
-    // }
+    this.trashes.bounce(this.submarine.submarineSprite);
+    this.trashes.bounce(this.trashes);
+    this.fish.fishSprite.bounce(this.trashes);
+    this.fish.fishSprite.bounce(this.submarine.submarineSprite);
   }
 
   createTrash() {
-    let trashSprite = createSprite(
-      random(50, WIDTH - 50),
-      random(50, HEIGHT - 50)
+    this.trashSprite = createSprite(
+      random(100, WIDTH - 100),
+      random(100, HEIGHT - 100)
     );
-    trashSprite.addImage(trashImage);
-    trashSprite.scale = 0.035;
-    this.trashes.add(trashSprite);
+    this.trashSprite.addImage(sodaCanImage);
+    this.trashSprite.scale = 0.1;
+    this.trashSprite.setSpeed(0.5, random(360));
+    this.trashSprite.rotationSpeed = 0.5;
+    this.trashes.add(this.trashSprite);
+
+    // trashArray.forEach(trash => {
+    //   this.trashSprite.addImage(trash);
+    //   this.trashSprite.scale = 0.1;
+    //   this.trashSprite.setSpeed(0.5, random(360));
+    //   this.trashSprite.rotationSpeed = 0.5;
+    //   this.trashes.add(this.trashSprite);
+    // });
+
+    // this.trashes.forEach((trash,index) => {
+    //   this.trashBoundary(index);
+    // });
+  }
+
+
+  trashBoundary(index) {
+    if (this.trashes[index].position.x > WIDTH - 100) {
+      this.trashes[index].position.x = WIDTH - 100;
+      this.trashes[index].rotation += 180;
+      this.trashes[index].setSpeed(0.5, this.trashes[index].rotation);
+      this.trashes[index].rotationSpeed = 0.5;
+    } else if (this.trashes[index].position.y > HEIGHT - 100) {
+  
+      this.trashes[index].position.y = HEIGHT - 100;
+      this.trashes[index].rotation += 180;
+      this.trashes[index].setSpeed(0.5, this.trashes[index].rotation);
+      this.trashes[index].rotationSpeed = 0.5;
+    } else if (this.trashes[index].position.y < 100) {
+      this.trashes[index].position.y = 100;
+      this.trashes[index].rotation -= 180;
+      this.trashes[index].setSpeed(0.5, this.trashes[index].rotation);
+      this.trashes[index].rotationSpeed = 0.5;
+    } else if (this.trashes[index].position.x < 100) {
+      this.trashes[index].position.x = 100;
+      this.trashes[index].rotation -= 180;
+      this.trashes[index].setSpeed(0.5, this.trashes[index].rotation);
+      this.trashes[index].rotationSpeed = 0.5;
+    }
   }
 
   hitMissile(missile, trash) {
@@ -63,36 +129,23 @@ class Game {
   eatTrash(trash, fish) {
     trash.remove();
 
-    if (fish.scale < 0.17) {
+    if (fish.scale < 0.45) {
       fish.scale += 0.07;
     } else {
-      
       fish.remove();
-      console.log(this)
+      console.log(this);
       createDeadFish();
-      noLoop()
+      noLoop();
     }
   }
-
-  /* createDeadFish() {
-  
-    let fishDeadSprite = createSprite(
-      this.fish.fishSprite.position.x,
-      this.fish.fishSprite.position.y
-    );
-    fishDeadSprite.addImage(fishDeadImage);
-    fishDeadSprite.scale = 0.45;
-    this.fishAlive=false;
-  } */
 }
-function createDeadFish(){
-  console.log("dead")
+
+function createDeadFish() {
+  console.log("dead");
   let fishDeadSprite = createSprite(
     game.fish.fishSprite.position.x,
     game.fish.fishSprite.position.y
   );
   fishDeadSprite.addImage(fishDeadImage);
   fishDeadSprite.scale = 0.45;
-  
-  // this.fishAlive=false;
 }
