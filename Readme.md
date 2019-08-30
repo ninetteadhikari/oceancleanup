@@ -1,11 +1,15 @@
 ## **Ocean cleanup**
 
 **Objective of the game**
+
 The player will have to shoot to destroy the trash before the fish eats the trash and dies
 
 *Player:* yellow submarine 
+
 *Character:* Nemo the fish 
+
 *Obstacles:* array of trashes (soda cans)
+
 *Background:* ocean bed 
 
 **Setup:**
