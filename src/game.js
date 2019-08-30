@@ -17,7 +17,7 @@ class Game {
     this.submarine.setup();
     this.fish.setup();
     bubblesSound.play();
-    // bubblesSound.setLoop(true);
+    bubblesSound.setLoop(true);
     
   }
 
