@@ -45,6 +45,7 @@ class Submarine {
   keyPressed() {
     if (keyCode === 32) {
       this.createMissile();
+      shootSound.play()
       // let newMissile =  new Missile(this.sprite.position.x, this.sprite.position.y,this.sprite.rotation)
       // newMissile.setup()
       // this.missiles.push(

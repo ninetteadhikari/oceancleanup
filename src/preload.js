@@ -14,6 +14,10 @@ let submarineImage;
 let missileSpriteLoad;
 let missileAnimation;
 let trashArray;
+let shootSound;
+let loseSound;
+let winSound;
+let bubblesSound;
 
 function preload() {
   cokeBottleImage = loadImage("assets/coke-bottle.png");
@@ -55,4 +59,8 @@ function preload() {
   );
   missileSpriteLoad = loadSpriteSheet("assets/explosion.png", 16, 16, 5);
   missileAnimation = loadAnimation(missileSpriteLoad);
+  shootSound=loadSound("assets/laser.mp3")
+  loseSound=loadSound("assets/death.wav")
+  winSound=loadSound("assets/round_end.wav")
+  bubblesSound=loadSound("assets/bubbles.wav")
 }

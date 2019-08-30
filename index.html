@@ -27,12 +27,65 @@
         <p class="credits">Credits</p>
       </div>
     </div>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>
+          <a
+            href="https://opengameart.org/content/bubbling-acid"
+            target="_blank"
+            >Creative Commons Bubbling Acid</a
+          >
+          by spookymodem is licensed under CC BY 3.0
+        </p>
+        <p>
+          <a
+            href="https://opengameart.org/content/oldschool-win-and-die-jump-and-run-sounds"
+            target="_blank"
+            >Creative Commons Oldschool win and die jump and run sounds</a
+          >
+          by sauer2 is licensed under CC BY 3.0
+        </p>
+        <p>
+          <a href="https://opengameart.org/content/laser-fire" target="_blank"
+            >Creative Commons Laser Fire</a
+          >
+          by dklon is licensed under CC BY 3.0
+        </p>
+        <p>
+          Icons made by
+          <a
+            href="https://www.flaticon.com/authors/surang"
+            target="_blank"
+            title="surang"
+            >surang</a
+          >
+          from
+          <a href="https://www.flaticon.com/" target="_blank" title="Flaticon"
+            >www.flaticon.com</a
+          >
+        </p>
+        <p>
+          Icons made by
+          <a
+            href="https://www.flaticon.com/authors/freepik"
+            target="_blank"
+            title="Freepik"
+            >Freepik</a
+          >
+          from
+          <a href="https://www.flaticon.com/" target="_blank" title="Flaticon"
+            >www.flaticon.com</a
+          >
+        </p>
+      </div>
+    </div>
     <div class="score-card">
       <div class="score">
         <div class="score-label">SCORE: <span class="score-value"></span></div>
       </div>
       <div class="health">
-        <span class="health-label">HEALTH</span>
+        <span class="health-label">Fish Health</span>
         <div class="health-box"><div class="health-bar"></div></div>
       </div>
     </div>
@@ -41,15 +94,21 @@
         <p class="game-lose-text1"></p>
         <p class="game-lose-text2"></p>
         <button
-          onclick="window.location.reload();"
-          class="btn play-again"
+          onclick="window.location.reload()"
+          class="btn play-again-lose"
         ></button>
       </div>
-      <!-- <div class="game-win">
-        <p>Yaay you saved the ocean!! ⭐️🐠</p>
-      </div> -->
+      <div class="game-win">
+        <p class="game-win-text1"></p>
+        <p class="game-win-text2"></p>
+        <button
+          onclick="window.location.reload()"
+          class="btn play-again-win"
+        ></button>
+      </div>
     </div>
     <script src="p5/p5.js"></script>
+    <script src="/p5/addons/p5.sound.js"></script>
     <script src="p5/addons/p5.play.js"></script>
     <script src="index.js"></script>
     <script src="src/missile.js"></script>

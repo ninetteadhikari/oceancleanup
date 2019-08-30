@@ -16,6 +16,8 @@ class Game {
     this.background.setup();
     this.submarine.setup();
     this.fish.setup();
+    bubblesSound.play();
+    // bubblesSound.setLoop(true);
     
   }
 
@@ -64,12 +66,20 @@ class Game {
     this.trashes.collide(this.fish.fishSprite, this.eatTrash)
     document.querySelector(".health-bar").style.width = `${this.fish.healthPoints*(100/6)}%`;
     document.querySelector(".score-value").innerText = `${this.score}`;
-    console.log(this.fish.healthPoints)
+    
     if (this.submarine.missiles) {
       this.trashes.collide(this.submarine.missiles, this.hitMissile);
     }
 
-    if (frameCount >= 240 && this.trashes.length === 0) {
+    if (this.score>190) {
+      document.querySelector(".game-win-text1").innerText =
+     "Yaay you saved the ocean!! ⭐️🐠";
+    document.querySelector(".game-win-text2").innerText = `You Scored ${this.score} points!`;
+    document.querySelector(".play-again-win").innerText = "Play Again";
+    document.querySelector(".game-win").style.display = "inline";
+    winSound.play()
+    winSound.setVolume(0.5)
+    startGame = false
       noLoop();
     }
 
@@ -144,8 +154,10 @@ class Game {
       document.querySelector(".game-lose-text1").innerText =
         "Oh no! You couldn't save the ocean.";
       document.querySelector(".game-lose-text2").innerText = "Game Over!";
-      document.querySelector(".play-again").innerText = "Try Again";
+      document.querySelector(".play-again-lose").innerText = "Try Again";
       document.querySelector(".game-lose").style.display = "inline";
+      loseSound.play()
+      loseSound.setVolume(0.5)
       noLoop();
     }
   }
