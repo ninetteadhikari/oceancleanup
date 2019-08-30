@@ -20,3 +20,7 @@ The player will have to shoot to destroy the trash before the fish eats the tras
 **Game ends in the following scenarios:**
 * The health of the fish is depleted
 * Player shoots and destroys trashes on the screen and scores more than 200 points and saves Nemo
+
+**Technology stack**
+
+[p5.play](https://molleindustria.github.io/p5.play/) JavaScript game library is used to build this game. This project is part of the [Ironhack bootcamp](https://www.ironhack.com/en)
